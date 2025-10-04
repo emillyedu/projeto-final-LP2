@@ -1,16 +1,28 @@
-
 #ifndef SERVER_H
 #define SERVER_H
-#include <pthread.h>
-#include <netinet/in.h>
 
-// nao implementado nesta etapa 1
+#include <stdint.h>
 
-typedef struct chat_server chat_server_t;
+#ifndef SERVER_BACKLOG
+#define SERVER_BACKLOG 16
+#endif
 
-chat_server_t* chat_server_create(const char* host, int port);
-void chat_server_destroy(chat_server_t* s);
-int  chat_server_start(chat_server_t* s);
-void chat_server_stop(chat_server_t* s);
+#ifndef SERVER_BUF_SZ
+#define SERVER_BUF_SZ 1024
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*
+ * Executa o loop principal do servidor.
+ * Retorna 0 em sucesso; !=0 em erro.
+ */
+int server_run(uint16_t port, const char *logpath);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif 
